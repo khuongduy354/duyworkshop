@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getMailbox, createMessage, getMessageCount, getMessages, config } from '@/lib/db'
+import { getMailbox, createMessage, getMessageCount, getMessages, config } from '../../../../../lib/db'
 
 export async function GET(req: Request, { params }: { params: { id: string } }) {
   const { id } = params

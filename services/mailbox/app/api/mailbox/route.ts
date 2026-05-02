@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { nanoid } from 'nanoid'
-import { createMailbox, getMailboxCount, config } from '@/lib/db'
+import { createMailbox, getMailboxCount, config } from '../../../lib/db'
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}))
