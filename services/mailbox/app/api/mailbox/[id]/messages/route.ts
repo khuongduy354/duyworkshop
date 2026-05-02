@@ -6,7 +6,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
   const url = new URL(req.url)
   const pin = url.searchParams.get('pin')
 
-  const mailbox = getMailbox(id)
+  const mailbox = await getMailbox(id)
   if (!mailbox) {
     return NextResponse.json({ error: 'Mailbox not found' }, { status: 404 })
   }
@@ -17,7 +17,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     }
   }
 
-  const messages = getMessages(id)
+  const messages = await getMessages(id)
   return NextResponse.json({
     mailbox: { id: mailbox.id, type: mailbox.type, expiresAt: mailbox.expiresAt },
     messages,
@@ -37,17 +37,17 @@ export async function POST(req: Request, { params }: { params: { id: string } })
     return NextResponse.json({ error: `Message too long. Max ${config.maxMessageLength} characters` }, { status: 400 })
   }
 
-  const mailbox = getMailbox(id)
+  const mailbox = await getMailbox(id)
   if (!mailbox) {
     return NextResponse.json({ error: 'Mailbox not found' }, { status: 404 })
   }
 
-  const msgCount = getMessageCount(id)
+  const msgCount = await getMessageCount(id)
   if (msgCount >= config.maxMessagesPerMailbox) {
     return NextResponse.json({ error: 'Mailbox full' }, { status: 503 })
   }
 
-  const messageId = createMessage(id, content)
+  const messageId = await createMessage(id, content)
   return NextResponse.json({
     id: messageId,
     createdAt: Date.now(),

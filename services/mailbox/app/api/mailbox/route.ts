@@ -20,13 +20,13 @@ export async function POST(req: Request) {
 
   const mailboxTtl = ttl ? Math.min(Math.max(parseInt(ttl), 60), 86400 * 7) : config.defaultTtl
 
-  const currentCount = getMailboxCount()
+  const currentCount = await getMailboxCount()
   if (currentCount >= config.maxMailboxes) {
     return NextResponse.json({ error: 'Maximum mailboxes reached' }, { status: 503 })
   }
 
   const id = nanoid(8)
-  createMailbox(id, type, pin, config.maxMessagesPerMailbox, mailboxTtl)
+  await createMailbox(id, type, pin, config.maxMessagesPerMailbox, mailboxTtl)
 
   return NextResponse.json({
     id,

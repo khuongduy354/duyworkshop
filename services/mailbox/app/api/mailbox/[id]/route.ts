@@ -6,7 +6,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
   const url = new URL(req.url)
   const pin = url.searchParams.get('pin')
 
-  const mailbox = getMailbox(id)
+  const mailbox = await getMailbox(id)
   if (!mailbox) {
     return NextResponse.json({ error: 'Mailbox not found' }, { status: 404 })
   }
@@ -17,7 +17,7 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     }
   }
 
-  const deleted = deleteMailbox(id)
+  const deleted = await deleteMailbox(id)
   if (deleted) {
     return NextResponse.json({ message: 'Mailbox deleted' })
   } else {
