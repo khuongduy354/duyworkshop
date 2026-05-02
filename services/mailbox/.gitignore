@@ -7,3 +7,4 @@ database/
 .env
 .DS_Store
 *.log
+.next/
