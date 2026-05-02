@@ -3,7 +3,7 @@ services:
     name: mailbox-service
     runtime: node
     plan: free
-    buildCommand: cd services/mailbox && npm install && npm run build
+    buildCommand: cd services/mailbox && npm install --include=dev && npm run build
     startCommand: cd services/mailbox && npm start
     envVars:
       - key: NODE_VERSION
