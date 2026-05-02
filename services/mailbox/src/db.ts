@@ -52,7 +52,7 @@ class BetterSqliteDatabase implements IDatabase {
     const now = Date.now();
     const stmt = this.db.prepare(`
       INSERT INTO mailboxes (id, type, pin, max_messages, created_at, expires_at)
-      VALUES (?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?)
     `);
     stmt.run(id, type, pin || null, maxMessages, now, now + ttl * 1000);
     return id;

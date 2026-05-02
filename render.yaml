@@ -6,6 +6,8 @@ services:
     buildCommand: cd services/mailbox && npm install && npm run build
     startCommand: cd services/mailbox && npm start
     envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
       - key: NODE_ENV
         value: production
       - key: PORT
