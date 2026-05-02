@@ -11,7 +11,7 @@ services:
       - key: PORT
         value: 3000
       - key: DB_PATH
-        value: /opt/render/project/services/mailbox/database/mailbox.db
+        value: /tmp/mailbox.db
       - key: DEFAULT_TTL
         value: 86400
       - key: CLEANUP_INTERVAL
@@ -26,7 +26,3 @@ services:
         value: 10
       - key: RATE_LIMIT_WINDOW
         value: 60000
-    disk:
-      name: mailbox-data
-      mountPath: /opt/render/project/database
-      sizeGB: 1
