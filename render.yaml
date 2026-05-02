@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: mailbox-service
+    runtime: node
+    plan: free
+    buildCommand: cd services/mailbox && npm install && npm run build
+    startCommand: cd services/mailbox && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: DB_PATH
+        value: /opt/render/project/services/mailbox/database/mailbox.db
+      - key: DEFAULT_TTL
+        value: 86400
+      - key: CLEANUP_INTERVAL
+        value: 3600000
+      - key: MAX_MAILBOXES
+        value: 1000
+      - key: MAX_MESSAGES_PER_MAILBOX
+        value: 100
+      - key: MAX_MESSAGE_LENGTH
+        value: 10000
+      - key: RATE_LIMIT_MAX
+        value: 10
+      - key: RATE_LIMIT_WINDOW
+        value: 60000
+    disk:
+      name: mailbox-data
+      mountPath: /opt/render/project/database
+      sizeGB: 1
